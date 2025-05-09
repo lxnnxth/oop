@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Time Converter</title>
+  </head>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f4f6f8;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  button {
+    padding: 10px 25px;
+    margin: 10px 5px;
+    font-size: 16px;
+    color: white;
+    background-color: #1976d2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    min-width: 120px;
+  }
+  
+  button:hover {
+    background-color: #15c048;
+  }
+  
+  
+  @media (max-width: 600px) {
+    body {
+      margin: 20px;
+      padding: 20px;
+    }
+  
+    button {
+      width: 100%;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+  }
+  </style>
+   <script type="text/javascript">
+   class Time {
+    convert(hours, minutes, seconds) {
+      if (isNaN(hours) || hours === null || hours === "") {
+        alert("You did not input hours");
+        console.error("You did not input hours");
+        return;
+      }
+      if (isNaN(minutes) || minutes === null || minutes === "") {
+        alert("You did not input minutes");
+        console.error("You did not input minutes");
+        return;
+      }
+      if (isNaN(seconds) || seconds === null || seconds === "") {
+        alert("You did not input seconds");
+        console.error("You did not input seconds");
+        return;
+      }
+      const time = `Time entered: ${hours}h ${minutes}m ${seconds}s`;
+      console.log(time);
+      document.getElementById("output").innerText = time;
+    }
+  }
+
+  class Minutes extends Time {
+    convert(hours, minutes, seconds) {
+      if (isNaN(hours) || hours === null || hours === "") {
+        alert("You did not input hours");
+        console.error("You did not input hours");
+        return;
+      }
+      if (isNaN(minutes) || minutes === null || minutes === "") {
+        alert("You did not input minutes");
+        console.error("You did not input minutes");
+        return;
+      }
+      if (isNaN(seconds) || seconds === null || seconds === "") {
+        alert("You did not input seconds");
+        console.error("You did not input seconds");
+        return;
+      }
+      const total = hours * 60 + minutes + seconds / 60;
+      const result = `Total minutes: ${total.toFixed(2)}`;
+      console.log(result);
+      document.getElementById("output").innerText = result;
+    }
+  }
+
+  class Seconds extends Time {
+    convert(hours, minutes, seconds) {
+      if (isNaN(hours) || hours === null || hours === "") {
+        alert("You did not input hours");
+        console.error("You did not input hours");
+        return;
+      }
+      if (isNaN(minutes) || minutes === null || minutes === "") {
+        alert("You did not input minutes");
+        console.error("You did not input minutes");
+        return;
+      }
+      if (isNaN(seconds) || seconds === null || seconds === "") {
+        alert("You did not input seconds");
+        console.error("You did not input seconds");
+        return;
+      }
+      const total = hours * 3600 + minutes * 60 + seconds;
+      const result = `Total seconds: ${total}`;
+      console.log(result);
+      document.getElementById("output").innerText = result;
+    }
+  }
+
+
+    const t0 = new Time();
+    const t1 = new Minutes();
+    const t2 = new Seconds();
+
+    const hours = parseFloat(prompt("Enter hours:"));
+    const minutes = parseFloat(prompt("Enter minutes:"));
+    const seconds = parseFloat(prompt("Enter seconds:"));
+
+  
+  </script>
+
+  
+  <body>
+    <h1 id="output"></h1>
+   
+    <button onclick="t0.convert(hours, minutes, seconds);">Show Time</button>
+    <button onclick="t1.convert(hours, minutes, seconds);">Minutes Converter </button>
+    <button onclick="t2.convert(hours, minutes, seconds);">Seconds Converter</button>
+    </div>
+  </body>
+</html>

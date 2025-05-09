@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Farm Simulator</title>
+</head>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f4f6f8;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  
+
+  
+  h1, h3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #0d47a1;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  input[type="text"] {
+    width: 60%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #90a4ae;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+  }
+  
+  input[type="text"]:focus {
+    border-color: #42a5f5;
+    outline: none;
+  }
+  
+  button {
+    padding: 10px 25px;
+    margin: 10px 5px;
+    font-size: 16px;
+    color: white;
+    background-color: #1976d2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+
+  button:hover {
+    background-color: #15c048;
+  }
+  
+  @media (max-width: 600px) {
+  body {
+    width: 90%;
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+</style>
+<script>
+  let currentItem;
+  let output;
+
+  class Farm{
+    constructor(name) {
+      this.name = name;
+    }
+create(){
+  console.log(`${this.name} has been created.` );
+}
+    speak() {
+      console.log(`${this.name} makes a sound.` );
+      output.innerHTML = `${this.name}  makes a sound.`;
+    }
+
+   
+  }
+
+  class Cow extends Farm {
+    speak() {
+      console.log(`${this.name} the cow says Moo!` );
+      output.innerHTML = `${this.name} the cow says Moo!`;
+    }
+    use() {
+      console.log(`${this.name} the cow produce milk.` );
+      output.innerHTML = `${this.name} the cow produce milk.`
+  }
+  }
+  class Chicken extends Farm {
+    speak() {
+      console.log(`${this.name} the chicken says Cluck!` );
+      output.innerHTML = `${this.name} the chicken says Cluck!`;
+    }
+    use() {
+      console.log(`${this.name} the chicken  lay eggs.` );
+      output.innerHTML = `${this.name} the chicken  lay eggs.`
+  }
+}
+
+  class Tractor extends Farm {
+    use() {
+      console.log(`${this.name} the tractor plows the field!` );
+      output.innerHTML = `${this.name} the tractor plows the field!`;
+    }
+
+    speak() {
+      console.log(`${this.name} the tractor goes VROOM!` );
+      output.innerHTML = `${this.name} the tractor goes VROOM!`;
+    }
+  }
+
+
+
+  function create() {
+    const type = document.getElementById("type").value;
+    const name = document.getElementById("nameInput").value;
+    
+    if (type == "cow") {
+      currentItem = new Cow(name);
+    } else if (type == "chicken") {
+      currentItem = new Chicken(name);
+    } else if (type == "tractor") {
+      currentItem = new Tractor(name);
+    }
+
+    
+    output.innerHTML = `${name} the ${type} has been created!\n`;
+    currentItem.create();
+
+    document.getElementById("speakbtn").disabled = false;
+    document.getElementById("usebtn").disabled = false;
+
+  }
+
+  function speak() {
+    if (currentItem) currentItem.speak();
+  }
+
+  function useTool() {
+    if (currentItem) currentItem.use();
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    output = document.getElementById("output");
+  });
+</script>
+
+<body>
+  <h1>Farm Simulator</h1>
+<h3 id="output"></h3>
+  <label>Choose Animal/Tool:</label>
+  <select id="type">
+    <option value="cow">Cow</option>
+    <option value="chicken">Chicken</option>
+    <option value="tractor">Tractor</option>
+  </select>
+  <br><br>
+
+  <label>Enter Name:</label>
+  <input type="text" id="nameInput" placeholder="Name here">
+  <br><br>
+
+  <button onclick="create()">Create</button>
+  <button id="speakbtn" onclick="speak()" disabled>Speak</button>
+<button id="usebtn" onclick="useTool()" disabled>Use</button>
+
+ 
+  
+</body>
+</html>

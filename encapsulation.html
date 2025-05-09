@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Banking</title>
+  </head>
+  <style>
+   * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #f4f6f8;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      div {
+        background-color: #ffffff;
+        border: 1px solid #cfd8dc;
+        padding: 40px;
+        text-align: center;
+        border-radius: 8px;
+      }
+
+      h1, h3 {
+        margin-bottom: 15px;
+        font-size: 24px;
+        color: #0d47a1;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #333;
+      }
+
+      input {
+        width: 80%;
+        max-width: 400px;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #90a4ae;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        transition: border-color 0.3s;
+      }
+
+      input:focus {
+        border-color: #42a5f5;
+        outline: none;
+      }
+
+      .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      button {
+        flex: 1 1 150px;
+        padding: 10px;
+        font-size: 16px;
+        color: white;
+        background-color: #1976d2;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #15c031;
+      }
+
+      @media (max-width: 600px) {
+  body {
+    width: 90%;
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+  </style>
+  <script>
+    class bank {
+      #sum;
+      #difference;
+      constructor(balance, amount) {
+        this.#sum = balance + amount;
+        this.#difference = balance - amount;
+      }
+      getSum() {
+        return this.#sum;
+      }
+
+      getDifference() {
+        return this.#difference;
+      }
+
+      setNum(balance, amount) {
+        this.#sum = balance + amount;
+        this.#difference = balance - amount;
+      }
+    }
+
+    let currentBalance = 0;
+
+    function deposit() {
+      const myBank = new bank(0, 0);
+      const dep = parseInt(document.getElementById("myamount").value);
+      if (isNaN(dep) || dep <= 0) {
+        alert("Please enter a valid amount.");
+
+        return;
+      }
+      myBank.setNum(currentBalance, dep);
+      currentBalance = myBank.getSum();
+      console.log("Balance:", currentBalance);
+      document.getElementById("myBal").innerHTML = currentBalance;
+    }
+
+    
+    function withdraw() {
+      const myBank = new bank(0, 0);
+      const wd = parseInt(document.getElementById("myamount").value);
+      if (isNaN(wd) || wd <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+
+      if (wd > currentBalance) {
+        alert("You dont have enough balance.");
+        return;
+      }
+
+      myBank.setNum(currentBalance, wd);
+      currentBalance = myBank.getDifference();
+      console.log("Withdrawn: ", wd);
+      console.log("New Balance: ", currentBalance);
+      document.getElementById("myBal").innerHTML = currentBalance;
+    }
+  </script>
+  <body>
+    <div>
+      <h1>Balance:</h1>
+      <h3 id="myBal">0</h3>
+
+      <label> Enter a Number to Deposit/Withdraw: </label>
+      <input type="text" id="myamount" /> <br>
+      <button onclick="withdraw()">WITHDRAW</button>
+      <button onclick="deposit()">DEPOSIT</button>
+    </div>
+  </body>
+</html>
